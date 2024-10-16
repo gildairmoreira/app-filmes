@@ -1,6 +1,9 @@
 package com.gildair.app_filmes;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gildair.app_filmes.Adapter.AdapterFilme;
 import com.gildair.app_filmes.Model.Filme;
 import com.gildair.app_filmes.Model.FilmeApi;
+import com.gildair.app_filmes.OnClick.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,35 @@ public class MainActivity extends AppCompatActivity {
         });
         IniciarComponentes();
         filmeList = new ArrayList<>();
+
+        //Eventos de Click da RecyclerView
+        recyclerView_filmes.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(),
+                recyclerView_filmes,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(getApplicationContext(), Detalhes_filme.class);
+                        intent.putExtra("capa", filmeList.get(position).getCapa());
+                        intent.putExtra("titulo", filmeList.get(position).getTitulo());
+                        intent.putExtra("descricao", filmeList.get(position).getDescricao());
+                        intent.putExtra("elenco", filmeList.get(position).getElenco());
+                        intent.putExtra("video", filmeList.get(position).getVideo());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    }
+                }
+        ));
+
 
         //Configurar Retrofit
         Retrofit retrofit = new Retrofit.Builder()

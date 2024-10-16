@@ -51,11 +51,15 @@ public class AdapterFilme extends RecyclerView.Adapter<AdapterFilme.FilmeViewHol
     public class FilmeViewHolder extends RecyclerView.ViewHolder {
         private ImageView capa;
         private TextView titulo;
+        private TextView descricao;
+        private TextView elenco;
 
         public FilmeViewHolder(@NonNull View itemView) {
             super(itemView);
             capa = itemView.findViewById(R.id.capaFilme);
             titulo = itemView.findViewById(R.id.tituloFilme);
+            descricao = itemView.findViewById(R.id.dt_descricaoFilme);
+            elenco = itemView.findViewById(R.id.dt_elencoFilme);
         }
     }
 }
